@@ -1,0 +1,676 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Quadratic</title>
+  <script src="https://unpkg.com/mathjs@5.4.1/dist/math.min.js"></script>
+  <meta charset="UTF-8">
+  <script src="https://cdn.plot.ly/plotly-1.35.2.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/mathjs@5.4.0/dist/math.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-1.35.2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=AM_CHTML"></script>
+  <script src="Spline.js"></script>
+
+
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+
+    .w3-bar-block .w3-bar-item {
+      padding: 20px;
+      font-weight: normal;
+      background-color: rgb(255, 57, 116);
+    }
+
+    #mySidebar {
+      background-color: rgb(255, 57, 116);
+      color: rgb(0, 0, 0);
+    }
+
+    #myTop {
+      background-color: rgb(255, 57, 116);
+    }
+
+    header {
+      background-color: rgb(255, 57, 116);
+    }
+
+    footer {
+      background-color: rgb(255, 57, 116);
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      text-align: center;
+    }
+
+    th {
+      padding: 8px;
+      text-align: right;
+      border-bottom: 1px solid #ddd;
+      background-color: rgb(255, 57, 116);
+
+    }
+
+    td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+
+    }
+
+
+
+    input {
+      width: 70%;
+      border-color: rgb(255, 168, 251);
+      border-top-width: 0px;
+      border-left-width: 0px;
+    }
+
+    A:link {
+      text-decoration: none;
+    }
+
+    A:visited {
+      text-decoration: none;
+    }
+
+
+    /* scrollbar */
+    /* width */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: rgb(255, 215, 215);
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: rgb(255, 57, 116);
+    }
+  </style>
+
+
+
+</head>
+
+<body style="background-color : #ffeaea ">
+
+  <!--------------------------------------------------------------nav------------------------------------------------------------------------------------------->
+
+  <nav class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-card" style="z-index:3;width:250px;"
+    id="mySidebar">
+
+    <a class="w3-bar-item w3-button w3-hide-large w3-large w3-hover-pink" href="javascript:void(0)"
+      onclick="w3_close()">Close <i class="fa fa-remove"></i></a>
+    <a class="w3-bar-item w3-button w3-text-white w3-hover-pink w3-pink" href="home.html">Home</a>
+    <div>
+      <a class="w3-bar-item w3-button w3-pink w3-text-white w3-hover-pink" onclick="myAccordion('demo1')"
+        href="javascript:void(0)">Roots of Equations <i class="fa fa-caret-down"></i></a>
+      <div id="demo1" class="w3-hide" style="font: 1em sans-serif;">
+        <a class="w3-bar-item w3-button w3-text-white w3-hover-pink" href="bisection.html">Bisection Method</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="false.html">False-Position Method</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Simple.html">Simple One-Point Iteration</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="newton.html">Newton-Ralphson Method</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Secant.html">Secant Method</a>
+      </div>
+    </div>
+
+    <div>
+      <a class="w3-bar-item w3-button w3-hover-pink w3-text-white w3-pink" onclick="myAccordion('demo2')"
+        href="javascript:void(0)">Solution Of Linear Algebraic Equations <i class="fa fa-caret-down"></i></a>
+      <div id="demo2" class="w3-hide" style="font: 1em sans-serif;">
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="cramer.html">Cramer's Rule</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Guss.html">Guss Elimination</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="jordan.html">Gauss-Jordan</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="matrix.html">Matrix Inversion</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="lu.html">LU Decomposition</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Cholesky.html">Cholesky Decomposition</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Jacobi.html">Jacobi Iteration</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="seidel.html">Gauss-Seidel</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Conjugate.html">Conjugate Gradient</a>
+      </div>
+    </div>
+
+    <div>
+      <a class="w3-bar-item w3-button w3-hover-pink w3-text-white w3-pink" onclick="myAccordion('demo3')"
+        href="javascript:void(0)">Interpolation <i class="fa fa-caret-down"></i></a>
+      <div id="demo3" class="w3-show" style="font: 1em sans-serif;">
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white " href="Divided_Difference.html">Newton's
+          Divided-Difference</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Lagrang.html">Lagrang</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white w3-pink" onclick="myAccordion('demo8')"
+          href="javascript:void(0)">Spline<i class="fa fa-caret-down"></i></a>
+        <div id="demo8" class="w3-show" style="font: 1em sans-serif;">
+          <a class="w3-bar-item w3-button w3-hover-pink w3-text-white " href="Spline_l.html"> &nbsp&nbsp Linear</a>
+          <a class="w3-bar-item w3-button w3-hover-pink w3-text-white w3-pink" href="Spline_q.html"> &nbsp&nbsp
+            quadratic</a>
+          <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Spline_c.html"> &nbsp&nbsp cubic</a>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <a class="w3-bar-item w3-button w3-hover-pink w3-text-white w3-pink" onclick="myAccordion('demo4')"
+        href="javascript:void(0)">Least Squares Regression<i class="fa fa-caret-down"></i></a>
+      <div id="demo4" class="w3-hide" style="font: 1em sans-serif;">
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Linear.html">Linear Regression</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Polynomial.html">Polynomial Regression</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Multiple.html">Multiple Linear Regression</a>
+      </div>
+    </div>
+
+    <div>
+      <a class="w3-bar-item w3-button w3-hover-pink w3-text-white w3-pink" onclick="myAccordion('demo5')"
+        href="javascript:void(0)">Numerical Difference and Intergration <i class="fa fa-caret-down"></i></a>
+      <div id="demo5" class="w3-hide" style="font: 1em sans-serif;">
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white w3-pink" onclick="myAccordion('demo9')"
+          href="javascript:void(0)">Differention<i class="fa fa-caret-down"></i></a>
+        <div id="demo9" class="w3-hide" style="font: 1em sans-serif;">
+          <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Forward.html"> &nbsp&nbsp Forward</a>
+          <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Central.html"> &nbsp&nbsp Central</a>
+          <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Backward.html"> &nbsp&nbsp Backward</a>
+        </div>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white w3-pink" onclick="myAccordion('demo7')"
+          href="javascript:void(0)">Intergration<i class="fa fa-caret-down"></i></a>
+        <div id="demo7" class="w3-hide" style="font: 1em sans-serif;">
+          <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="compositet.html"> &nbsp&nbsp Composite
+            Trapezodal</a>
+          <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="composites.html"> &nbsp&nbsp Composite
+            Simpson's Rule</a>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <a class="w3-bar-item w3-button w3-hover-pink w3-text-white w3-pink" onclick="myAccordion('demo11')"
+        href="javascript:void(0)">Ordinary Differential Equations<i class="fa fa-caret-down"></i></a>
+      <div id="demo11" class="w3-hide" style="font: 1em sans-serif;">
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Euler.html">Euler's Method</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Heun.html">Heun's Method</a>
+        <a class="w3-bar-item w3-button w3-hover-pink w3-text-white" href="Modified.html">Modified Euler's Method</a>
+      </div>
+    </div>
+
+
+  </nav>
+  <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+
+  <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay">
+  </div>
+
+  <div class="w3-main" style="margin-left:250px;">
+
+    <div id="myTop" class="w3-container w3-top w3-large">
+      <p><i class="fa fa-bars w3-button w3-hide-large w3-xlarge w3-text-white w3-hover-pink" onclick="w3_open()"
+          style="background-color:rgb(255, 57, 116); "></i>
+        <span id="myIntro" class="w3-hide w3-text-white">INTERPOLATION : Quadratic</span></p>
+    </div>
+
+    <header class="w3-container " style="padding:64px 32px">
+      <h1 class="w3-xxxlarge w3-text-white">INTERPOLATION</h1>
+    </header>
+
+    <div class="w3-container" style="padding:32px">
+
+      <h2>Quadratic</h2>
+
+      <p>Algorithm: </p>
+
+      <ul class="w3-leftbar w3-theme-border w3-border-red" style="list-style:none">
+        <li>Step 1 : ใส่ X และ Y </li>
+        <li>Step 2 : ใส่ค่า X ที่ต้องการหา Y </li>
+      </ul>
+      <br>
+
+      <center>
+
+        <input type="text" class="w3-input w3-hover" style="width:20% " id="n" placeholder="n">
+        <br>
+        <br>
+        <input type="submit" value="create table" onclick="create_matrix(n.value)" id="button"
+          class="w3-button w3-section w3-pink w3-ripple w3-hover-red" style="width:20% " />
+        <br>
+        <br>
+        <br>
+
+
+      </center>
+
+
+
+
+
+      <div class="w3-container w3-padding-16 w3-card" style="background-color :white" id="create_matrix">
+        <h3>ตาราง X Y</h3>
+        <hr>
+        <TABLE>
+          <TR>
+            <TD>X
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Y</TD>
+
+          </TR>
+          <TR>
+
+            <TD id="matrix" style="width:100%"></TD>
+
+          </TR>
+        </TABLE>
+
+        <br>
+
+        <center>
+          ค่า X ที่ต้องการหา Y : <input type="text" style="width:40% " id="x_find">
+          <br> <br>
+          <br>
+      </div>
+      <center><input type="submit" value="calculate" onclick="call_spline(x_find.value) " id="cal"
+          class="w3-button w3-section w3-pink w3-ripple w3-hover-red" style="width:10% " /></center>
+
+
+      <br>
+      <!--show A inverese-->
+
+
+
+
+
+
+      <br>
+      <div class="w3-container w3-padding-16 w3-card" style="background-color :white" id="showx">
+        <h3> คำตอบของค่าประมาณคือ </h3>
+        <hr>
+        <br>
+
+        <center>
+          <table id="ans">
+            <tr>
+                  <th width="30%" style="text-align:center">X</th>
+                  <th width="30%" style="text-align:center">Y</th>
+                  <th width="10%" style="text-align:center">=</th>
+                  <th width="30%" style="text-align:center">a,b,c,d</th>
+
+           </tr>
+          <tr class="list-data">
+                  <td>..........</td>        
+                  <td>............</td>   
+                  <td>..........</td>        
+                  <td>............</td>  
+          </tr>
+        </table>
+        </center>
+
+        
+        <center><h4 id="anwser"></h4></center>
+<hr>
+      </div>
+
+    </div>
+
+
+
+
+
+    <footer class="w3-container " style="padding:32px">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h3>About As...</h3>
+            <hr style="border-color: black">
+            <p>Submitted by &nbsp :: &nbsp &nbspMiss Thanita &nbsp Playlaharn</p>
+            <p> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+              5904062620033</p>
+            <p> Present to &nbsp &nbsp &nbsp ::&nbsp &nbsp Suwatchai Kamonsantiroj &nbsp &nbsp, &nbsp &nbspPh.D.</p>
+          </div>
+          <div class="col-sm-4">
+
+
+          </div>
+          <div class="col-sm-4">
+            <h3>About As...</h3>
+            <hr style="border-color: black">
+            <p>&nbsp &nbspThe website is a part of Numerical Method Subject</p>
+            <p>&nbsp &nbspDepartment of Computer and Information Science ,</p>
+            <p>&nbsp &nbspFaculty of Applied Science , King Mongkut's </p>
+            <p>&nbsp &nbspUniversity of Technology North Bangkok</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+
+
+  <script>
+    // Open and close the sidebar on medium and small screens
+    function w3_open() {
+      document.getElementById("mySidebar").style.display = "block";
+      document.getElementById("myOverlay").style.display = "block";
+    }
+
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+      document.getElementById("myOverlay").style.display = "none";
+    }
+
+    // Change style of top container on scroll
+    window.onscroll = function () { myFunction() };
+    function myFunction() {
+      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+        document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
+        document.getElementById("myIntro").classList.add("w3-show-inline-block");
+      }
+      else {
+        document.getElementById("myIntro").classList.remove("w3-show-inline-block");
+        document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
+      }
+    }
+
+    // Accordions
+    function myAccordion(id) {
+      var x = document.getElementById(id);
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-pink w3-text-white w3-hover-pink";
+      }
+      else {
+        x.className = x.className.replace("w3-show", "w3-hide");
+        x.previousElementSibling.className.replace(" w3-pink w3-text-white w3-hover-pink", " ");
+      }
+    }
+
+  </script>
+
+
+
+  <script>
+    function create_matrix(n) {
+
+
+      //อ่าน body
+      var body = document.getElementById('matrix');
+      // สร้าง <table> และ <tbody>
+      var tbl = document.createElement("table");
+      var tblBody = document.createElement("tbody");
+      // n แถว m คอลัมน์
+      var cellText = new Array();
+      for (var j = 0; j < n; j++) {
+        cellText[j] = new Array();
+        // สร้าง row
+        var row = document.createElement("tr");
+        // สร้าง col
+        for (var i = 0; i < 2; i++) {
+          // สร้าง td
+
+          var cell = document.createElement("td");
+          cellText[j][i] = document.createElement("input");
+          cellText[j][i].setAttribute("width", "8%");
+          cell.appendChild(cellText[j][i]);
+          cellText[j][i].id = 'input' + j + i;
+          row.appendChild(cell);
+        };
+        // แทรกแถว ลงใน tbody
+        tblBody.appendChild(row);
+      };
+      // ใส่ <tbody> ลงใน <table>
+      tbl.appendChild(tblBody);
+      // ใส่ <table> ลงใน <body>
+      body.appendChild(tbl);
+      // กำหนด border
+      tbl.setAttribute("border", "0");
+
+
+
+
+    }
+
+
+
+
+    function call_spline(x_find) {
+
+      var x_val = new Array();
+      var y_Array = new Array();
+      var y_value = new Array();
+      var n = parseInt(document.getElementById("n").value);
+      var A_matrix = new Array();
+
+      for (let i = 0; i < 3 * (n - 1); i++) {
+        A_matrix.push(new Array());
+
+      }
+      for (let i = 0; i < 3 * (n - 1); i++) {
+        for (let j = 0; j < 3 * (n - 1); j++) {
+          A_matrix[i][j] = 0;
+          //alert(A_matrix[i][j]);
+        }
+      }
+      for (let i = 0; i < n; i++) {
+        x_val[i]   = parseFloat(document.getElementById('input'+i+0).value);
+        y_value[i] = parseFloat(document.getElementById('input'+i+1).value);
+        console.log(x_val[i]);
+      }
+      //let findx = parseFloat(document.getElementById("findX").value);
+
+      var part1 = ((n - 1) * 2);
+      var part2 = (n - 2);
+      let counter = 0;
+      let even = false;
+      let i = 0;
+      A_matrix[0][0] = Math.pow(x_val[0], 2);
+      A_matrix[0][1] = x_val[0];
+      A_matrix[0][2] = 1;
+      for (i = 1; i < part1; i++) {
+        for (let j = 0; j < 3; j++) {
+
+          if (j % 3 == 0) {
+            A_matrix[i][(counter * 3) + j] = Math.pow(x_val[Math.floor((i + 1) / 2)], 2);
+          }
+          else if (j % 3 == 1) {
+            A_matrix[i][(counter * 3) + j] = x_val[Math.floor((i + 1) / 2)];
+          }
+          else {
+            A_matrix[i][(counter * 3) + j] = 1;
+          }
+          console.log(counter);
+
+        }
+        if (i == 1) {
+          counter += 1;
+        }
+        else if (i % 2 != 0) {
+          counter++;
+        }
+
+      }
+
+      counter = 0;
+      let c = 1;
+      let t = 0;
+      for (let k = i; k < 3 * (n - 1) - 1; k++) {
+        for (let j = 0; j < 3; j++) {
+
+          if (j % 3 == 0) {
+            A_matrix[k][(counter * 3) + j] = 2 * x_val[c];
+            A_matrix[k][(counter + 1) * 3 + j] = -2 * x_val[c];
+          }
+          else if (j % 3 == 1) {
+            A_matrix[k][(counter * 3) + j] = 1;
+            A_matrix[k][(counter + 1) * 3 + j] = -1;
+          }
+          else {
+            A_matrix[k][(counter * 3) + j] = 0;
+          }
+
+        }
+
+        c++;
+        if (k == part1 + 1) {
+          counter += 1
+        }
+        if (k % 2 == 0) {
+          counter++;
+        }
+
+      }
+
+      A_matrix[3 * (n - 1) - 1][0] = 1;
+      counter = 2;
+      let heeeeee = 1;
+      let l = 0;
+      for (l = 0; l < 2 * (n - 1); l++) {
+        if (l == 0) {
+          y_Array[0] = y_value[0];
+        }
+        else if (counter == 1) {
+          y_Array[l] = y_value[heeeeee];
+          counter = 2;
+          heeeeee++;
+        }
+        else {
+          y_Array[l] = y_value[heeeeee];
+          counter--;
+        }
+      }
+
+      for (l; l < (n - 1) * 3; l++) {
+        y_Array[l] = 0;
+      }
+
+
+      let ans = cramer(A_matrix, y_Array, (n - 1) * 3, (n - 1) * 3);
+      ans[0] = 0;
+      console.log(A_matrix);
+      console.log(y_Array);
+      console.log(ans);
+
+let ans2 = 0;
+        for (i = 0; i < n - 1; i++) {
+            if (x_find >= x_val[i] && x_find <= x_val[i + 1]) {
+                ans2 += (ans[(i) * 3] * math.pow(x_find, 2)) + (ans[(i) * 3 + 1] * x_find) + ans[(i) * 3 + 2];
+            }
+        }
+
+document.getElementById("anwser").innerHTML = "f  &nbsp( &nbspx <sub>"+x_find+"</sub> &nbsp) &nbsp =  &nbsp &nbsp  &nbsp"+  ans2 ;
+
+    var a=1;
+
+        
+    var loopTag = $(".list-data").clone(true); // clone แถวที่ทำการลูปไว้ในตัวแปร
+    var newTag =""; // สร้างตัวแปรไว้เก็บ html tags ที่สร้างมาใหม่  
+    for(let i=0;i<(n - 1) * 3;i++){ // วนลูปข้อมูล array ของ object
+      var objHTML = loopTag; // ใช้ตัวแปร object ที่ clone มา
+      objHTML.find("td:eq(0)").html("["+A_matrix[i]+"]").end()
+      .find("td:eq(1)").html(y_Array[i]).end()
+      .find("td:eq(2)").html('').end()
+      .find("td:eq(3)").html(ans[i]).end();
+      newTag += $(objHTML)[0].outerHTML; // สร้าง tags ข้อมูลใหม่แต่ละแถว         
+      a++;                  
+    }
+$(".list-data").replaceWith(newTag); // แทนที่แถวที่จะทำการลูปด้วยข้อมูลใหม่  
+
+
+
+    }
+
+
+
+    /*   B_Array = [y[1], y[1], y[2], y[2], y[0], y[3], 0, 0];
+       let ans = cramer(A_matrix, B_Array,8,8)
+       let  anser  = 0;
+
+       if((x_find>=x[0]) && (x_find <= x[1]))
+       {
+         anser = ans[0]*x_find
+         anser = anser+ans[1]
+       }
+       else if(x_find>=x[1] && x_find<=x[2])
+       {
+         anser = (ans[2]*Math.pow(x_find,2))+(ans[3]*x_find)+ans[4];
+       }
+       else if(x_find>=x[2] && x_find<=x[3])
+       {
+         anser = (ans[5]*Math.pow(x_find,2))+(ans[6]*x_find)+ans[7];
+       }
+       else{
+         anser = -1;
+       }
+       console.log(anser)
+       anser = parseFloat(anser).toFixed(5)
+
+       document.getElementById("anwser").innerHTML = "f  &nbsp( &nbspx <sub>"+x_find+"</sub> &nbsp) &nbsp =  &nbsp &nbsp  &nbsp"+  anser ;*/
+
+
+
+
+
+
+    //---------------------------------------------------------------------------****---------------------------------
+
+    function cramer(A, B, col, row) {
+      detA = math.det(A);
+      var temp = new Array();
+      let ans = new Array();
+      for (var i = 0; i < col; i++) {
+        ans.push(det(A, B, i, row) / detA);
+      }
+
+      return ans;
+    }
+    function det(A, B, i, row) {
+      var temp = new Array();
+      temp = JSON.parse(JSON.stringify(A));
+      for (var j = 0; j < row; j++) {
+        temp[j][i] = B[j];
+      }
+
+      return math.det(temp);
+    }
+
+
+  </script>
+
+
+
+  <script>
+    $(document).ready(function () {
+      $("#create_matrix").hide();
+      $("#findx").hide();
+      $("#showx").hide();
+      $("#cal").hide();
+      $("#pointuse").hide();
+      $("#button").click(function () {
+        $("#create_matrix").show();
+        $("#cal").show();
+      });
+
+
+      $("#cal").click(function () {
+        $("#showx").show();
+        $("#findx").show();
+      });
+    });
+
+
+  </script>
+
+
+
+</body>
+
+</html>
